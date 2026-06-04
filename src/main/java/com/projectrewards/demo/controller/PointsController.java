@@ -30,9 +30,19 @@ public class PointsController {
     }
 
     @GetMapping("/balance/{userId}")
-    public ResponseEntity<Map<String, Long>> balance(@PathVariable Long userId) {
+    public ResponseEntity<Map<String, Object>> balance(@PathVariable Long userId) {
         long balance = pointsService.getBalance(userId);
-        return ResponseEntity.ok(Map.<String, Long>of("balance", balance));
+        String tier;
+        if (balance < 100) {
+            tier = "Award";
+        } else if (balance < 200) {
+            tier = "Silver";
+        } else if (balance < 400) {
+            tier = "Gold";
+        } else {
+            tier = "Platinum";
+        }
+        return ResponseEntity.ok(Map.of("balance", balance, "tier", tier));
     }
 
     @ExceptionHandler(InsufficientPointsException.class)
