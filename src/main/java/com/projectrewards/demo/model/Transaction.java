@@ -18,11 +18,14 @@ public class Transaction {
     @Column(name = "points_delta", nullable = false)
     private Integer pointsDelta;
 
+    @Column(name = "available_points", nullable = false)
+    private Integer availablePoints = 0;
+
     @Column(name = "expired", nullable = false)
     private boolean expired = false;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
+    @Column(name = "transaction_type", nullable = false)
     private TransactionType type;
 
     @Column(name = "purchase_id")
@@ -41,6 +44,9 @@ public class Transaction {
 
     public Integer getPointsDelta() { return pointsDelta; }
     public void setPointsDelta(Integer pointsDelta) { this.pointsDelta = pointsDelta; }
+
+    public Integer getAvailablePoints() { return availablePoints; }
+    public void setAvailablePoints(Integer availablePoints) { this.availablePoints = availablePoints; }
 
     public boolean isExpired() { return expired; }
     public void setExpired(boolean expired) { this.expired = expired; }
