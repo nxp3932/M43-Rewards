@@ -1,6 +1,6 @@
-# Project Rewards
+# Loyalty Points System
 
-Minimal Spring Boot demo for App earning reward points and redeeming them.
+Spring Boot App for earning reward points and redeeming them.
 
 Prerequisites
 - Java 21+ (set JAVA_HOME or have java on PATH)
@@ -42,22 +42,24 @@ Files of interest
 - `src/main/resources/data.sql` — H2 initializers
 - `src/main/java/com/projectrewards/demo` — application source code
 
----
-Concise README with build and run instructions.
+
 
 ---
 
 ## System Design
 
+### Whiteboard
 ![Initial whiteboard design](system_design.png)
 
 Users and Transactions were the only two tables needed for current exercise. Tried to keep it minimal and easy to understand. 
 
 Explored the idea of recording purchases and reward items separately, but the project scope increased significantly.
 
-Currently worked with simple earning and redemption of points as long as points are active. Thought about alternate redemption solution where the "oldest" points are redeemed first, and solution is possible, but could to fit in interest of time.
+Currently worked with simple earning and redemption of points as long as points are active. Thought about alternate redemption solution where the "oldest" points are redeemed first, and solution is possible, but could not fit it in interest of time.
 
 I would definitely like to implement that next.
+
+The other solution I would improve is the expiry of points, currently it is just a check if it's more than a year old, but I would like to update the age, so that user could be informed if points are expiring soon, etc.
 
 Used GPT-5 mini built-in to VSCode for initial setup of SpringBoot project and to make changes as well. Some of it is documented in commits, but happy to share the prompts and results. I'll attach a few.
 
