@@ -2,7 +2,7 @@ package com.projectrewards.demo.model;
 
 public enum TransactionType {
     REWARD_REDEEM,
-    ADJUSTMENT,
+    REFUND,
     EARNING,
     OTHER
 }

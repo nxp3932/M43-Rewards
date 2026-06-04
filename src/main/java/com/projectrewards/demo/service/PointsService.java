@@ -63,13 +63,22 @@ public class PointsService {
         Transaction orig = transactionRepository.findByUser_IdAndPurchaseId(userId, purchaseId)
                 .orElseThrow(() -> new IllegalArgumentException("transaction not found for user/purchase"));
 
+        Integer origAvail = orig.getAvailablePoints();
+        if (origAvail == null || origAvail <= 0) {
+            throw new IllegalArgumentException("original transaction has no available points to refund");
+        }
+
         Transaction rev = new Transaction();
         rev.setUser(user);
         rev.setTxPoints(orig.getTxPoints() == null ? 0 : -orig.getTxPoints());
-        rev.setAvailablePoints(orig.getAvailablePoints() == null ? 0 : -orig.getAvailablePoints());
-        rev.setType(TransactionType.ADJUSTMENT);
+        rev.setAvailablePoints(0);
+        rev.setPurchaseId(null);
+        rev.setType(TransactionType.REFUND);
         rev.setCreatedAt(Instant.now());
         transactionRepository.save(rev);
+
+        orig.setAvailablePoints(0);
+        transactionRepository.save(orig);
 
         Long avail = transactionRepository.sumAvailablePointsByUserId(userId);
         return avail == null ? 0L : avail.longValue();
