@@ -22,6 +22,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 	
 	java.util.Optional<Transaction> findByPurchaseId(Long purchaseId);
 
+	java.util.Optional<Transaction> findByUser_IdAndPurchaseId(Long userId, Long purchaseId);
+
 	@Modifying
 	@Transactional
 	@Query("UPDATE Transaction t SET t.expired = true WHERE t.expired = false AND t.createdAt < :cutoff")

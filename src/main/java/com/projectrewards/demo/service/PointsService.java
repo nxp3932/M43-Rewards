@@ -57,6 +57,24 @@ public class PointsService {
         return transactionRepository.sumAvailablePointsByUserId(userId);
     }
 
+    @Transactional
+    public long refund(Long userId, Long purchaseId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("user not found"));
+        Transaction orig = transactionRepository.findByUser_IdAndPurchaseId(userId, purchaseId)
+                .orElseThrow(() -> new IllegalArgumentException("transaction not found for user/purchase"));
+
+        Transaction rev = new Transaction();
+        rev.setUser(user);
+        rev.setTxPoints(orig.getTxPoints() == null ? 0 : -orig.getTxPoints());
+        rev.setAvailablePoints(orig.getAvailablePoints() == null ? 0 : -orig.getAvailablePoints());
+        rev.setType(TransactionType.ADJUSTMENT);
+        rev.setCreatedAt(Instant.now());
+        transactionRepository.save(rev);
+
+        Long avail = transactionRepository.sumAvailablePointsByUserId(userId);
+        return avail == null ? 0L : avail.longValue();
+    }
+
     @Transactional(readOnly = true)
     public long getBalance(Long userId) {
         // verifies user exists

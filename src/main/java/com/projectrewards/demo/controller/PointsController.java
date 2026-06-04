@@ -2,6 +2,7 @@ package com.projectrewards.demo.controller;
 
 import com.projectrewards.demo.dto.EarnRequest;
 import com.projectrewards.demo.dto.RedeemRequest;
+import com.projectrewards.demo.dto.RefundRequest;
 import com.projectrewards.demo.exception.InsufficientPointsException;
 import com.projectrewards.demo.service.PointsService;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,12 @@ public class PointsController {
     @PostMapping("/redeem")
     public ResponseEntity<Map<String, Long>> redeem(@RequestBody RedeemRequest req) {
         long balance = pointsService.redeem(req.getUserId(), req.getPointsRedeemed());
+        return ResponseEntity.ok(Map.<String, Long>of("balance", balance));
+    }
+
+    @PostMapping("/refund")
+    public ResponseEntity<Map<String, Long>> refund(@RequestBody RefundRequest req) {
+        long balance = pointsService.refund(req.getUserId(), req.getPurchaseId());
         return ResponseEntity.ok(Map.<String, Long>of("balance", balance));
     }
 
