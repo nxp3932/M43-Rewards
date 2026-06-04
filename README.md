@@ -1,6 +1,6 @@
-# Project Rewards (demo)
+# Project Rewards
 
-Minimal Spring Boot demo for user points, purchases and rewards.
+Minimal Spring Boot demo for App earning reward points and redeeming them.
 
 Prerequisites
 - Java 21+ (set JAVA_HOME or have java on PATH)
@@ -9,7 +9,7 @@ Prerequisites
 
 Build
 ```bash
-./mvnw -DskipTests=true clean package
+./mvnw clean package
 ```
 
 Run (H2 - fastest)
@@ -44,3 +44,31 @@ Files of interest
 
 ---
 Concise README with build and run instructions.
+
+---
+
+## System Design
+
+![Initial whiteboard design](system_design.png)
+
+Users and Transactions were the only two tables needed for current exercise. Tried to keep it minimal and easy to understand. 
+
+Explored the idea of recording purchases and reward items separately, but the project scope increased significantly.
+
+Currently worked with simple earning and redemption of points as long as points are active. Thought about alternate redemption solution where the "oldest" points are redeemed first, and solution is possible, but could to fit in interest of time.
+
+I would definitely like to implement that next.
+
+Used GPT-5 mini built-in to VSCode for initial setup of SpringBoot project and to make changes as well. Some of it is documented in commits, but happy to share the prompts and results. I'll attach a few.
+
+fixing bug where refund could be infinitely applied, leading to errors
+
+### Fixing a /refund edge case:
+![fixing a refund edge case](gpt-example1.png)
+
+### Another case to prevent refund misuse
+![another refund mis-use case](gpt-example2.png)
+
+### Adding column to table and corresponding model changes
+![adding column to table](gpt-example3.png)
+
