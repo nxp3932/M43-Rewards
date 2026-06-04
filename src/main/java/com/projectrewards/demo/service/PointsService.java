@@ -28,12 +28,13 @@ public class PointsService {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("user not found"));
         Transaction tx = new Transaction();
         tx.setUser(user);
-        tx.setPointsDelta(points);
+        tx.setTxPoints(points);
+        tx.setAvailablePoints(points);
         tx.setPurchaseId(purchaseId);
         tx.setType(TransactionType.EARNING);
         tx.setCreatedAt(Instant.now());
         transactionRepository.save(tx);
-        return transactionRepository.sumPointsByUserId(userId);
+        return transactionRepository.sumAvailablePointsByUserId(userId);
     }
 
     @Transactional
@@ -45,11 +46,12 @@ public class PointsService {
         }
         Transaction tx = new Transaction();
         tx.setUser(user);
-        tx.setPointsDelta(-points);
+        tx.setTxPoints(-points);
+        tx.setAvailablePoints(-points);
         tx.setType(TransactionType.REWARD_REDEEM);
         tx.setCreatedAt(Instant.now());
         transactionRepository.save(tx);
-        return transactionRepository.sumPointsByUserId(userId);
+        return transactionRepository.sumAvailablePointsByUserId(userId);
     }
 
     @Transactional(readOnly = true)
