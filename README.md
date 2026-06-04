@@ -19,8 +19,38 @@ Run (H2 - fastest)
 ```
 App URL: http://localhost:8080
 
+---
 
-API examples
+### Relevant Data loaded into tables at startup (not showing all data)
+
+#### User Table
+| id | username | email |
+| :---: | :---: | :---: |
+| 1 | alice | alice@example.com |
+| 2 | bob | bob@example.com |
+| 3 | carol | carol@example.com |
+| 4 | dave | dave@example.com |
+| 5 | eve | eve@example.com |
+
+#### Transactions Table
+
+| id | userId | purchaseId | available_points | expired |
+| :---: | :---: | :---: | :---: | :---: |
+| 1 | 1 | 1 | 100 | FALSE |
+| 2 | 1 | 2 | 25 | FALSE |
+| 3 | 2 | 3 | 150 | FALSE |
+| 4 | 2 | 4 | 50 | FALSE |
+| 5 | 3 | 5 | 200 | FALSE |
+| 6 | 3 | 6 | 75 | FALSE |
+| 7 | 4 | 7 | 50 | FALSE |
+| 8 | 4 | 8 | 10 | FALSE |
+| 9 | 5 | 9 | 300 | FALSE |
+| 10 | 5 | 10 | 120 | FALSE |
+
+
+---
+
+## API examples
 - POST /earn
 ```bash
 curl -i -X POST http://localhost:8080/earn \
@@ -36,6 +66,12 @@ curl -i -X POST http://localhost:8080/redeem \
 - GET /balance/{userId}
 ```bash
 curl -i http://localhost:8080/balance/1
+```
+- POST /refund
+```bash
+curl -i -X POST http://localhost:8080/refund \
+  -H "Content-Type: application/json" \
+  -d '{"userId":1,"purchaseId":11 }'
 ```
 
 Files of interest
