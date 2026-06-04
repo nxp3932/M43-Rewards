@@ -15,8 +15,8 @@ public class Transaction {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "points_delta", nullable = false)
-    private Integer pointsDelta;
+    @Column(name = "tx_points", nullable = false)
+    private Integer txPoints;
 
     @Column(name = "available_points", nullable = false)
     private Integer availablePoints = 0;
@@ -42,8 +42,8 @@ public class Transaction {
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
 
-    public Integer getPointsDelta() { return pointsDelta; }
-    public void setPointsDelta(Integer pointsDelta) { this.pointsDelta = pointsDelta; }
+    public Integer getTxPoints() { return txPoints; }
+    public void setTxPoints(Integer txPoints) { this.txPoints = txPoints; }
 
     public Integer getAvailablePoints() { return availablePoints; }
     public void setAvailablePoints(Integer availablePoints) { this.availablePoints = availablePoints; }

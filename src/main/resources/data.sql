@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS "transaction" (
     id           BIGSERIAL PRIMARY KEY,
     user_id      BIGINT NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
     purchase_id  BIGINT,
-    points_delta INTEGER NOT NULL,
+    tx_points INTEGER NOT NULL,
   available_points INTEGER NOT NULL DEFAULT 0,
     expired      BOOLEAN NOT NULL DEFAULT FALSE,
     created_at   TIMESTAMP WITH TIME ZONE DEFAULT now()
@@ -25,7 +25,7 @@ INSERT INTO "user" (username, email, password_hash, created_at) VALUES
   ('dave','dave@example.com','pwdhash4', CURRENT_TIMESTAMP),
   ('eve','eve@example.com','pwdhash5', CURRENT_TIMESTAMP);
 
-INSERT INTO "transaction" (user_id, purchase_id, points_delta, available_points, expired, created_at, transaction_type)
+INSERT INTO "transaction" (user_id, purchase_id, tx_points, available_points, expired, created_at, transaction_type)
 VALUES
   ((SELECT id FROM "user" WHERE username='alice'), 1, 100, 100, FALSE, CURRENT_TIMESTAMP, 'EARNING'),
   ((SELECT id FROM "user" WHERE username='alice'), 2, 25, 25, FALSE, CURRENT_TIMESTAMP, 'EARNING'),

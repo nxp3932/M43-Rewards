@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-	@Query("SELECT COALESCE(SUM(t.pointsDelta), 0) FROM Transaction t WHERE t.user.id = :userId AND t.expired = false")
+	@Query("SELECT COALESCE(SUM(t.txPoints), 0) FROM Transaction t WHERE t.user.id = :userId AND t.expired = false")
 	Long sumPointsByUserId(@Param("userId") Long userId);
 
 	@Query("SELECT COALESCE(SUM(t.availablePoints), 0) FROM Transaction t WHERE t.user.id = :userId AND t.expired = false")
