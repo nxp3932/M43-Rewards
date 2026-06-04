@@ -56,6 +56,8 @@ public class PointsService {
     public long getBalance(Long userId) {
         // verifies user exists
         userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("user not found"));
-        return transactionRepository.sumPointsByUserId(userId);
+        // Use availablePoints sum for balance
+        Long avail = transactionRepository.sumAvailablePointsByUserId(userId);
+        return avail == null ? 0L : avail.longValue();
     }
 }
