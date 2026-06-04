@@ -6,17 +6,18 @@ CREATE TABLE IF NOT EXISTS "user" (
     created_at     TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 CREATE TABLE IF NOT EXISTS "transaction" (
-    id           BIGSERIAL PRIMARY KEY,
-    user_id      BIGINT NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
-    purchase_id  BIGINT,
-    tx_points INTEGER NOT NULL,
-  available_points INTEGER NOT NULL DEFAULT 0,
-    expired      BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at   TIMESTAMP WITH TIME ZONE DEFAULT now()
+    id                  BIGSERIAL PRIMARY KEY,
+    user_id             BIGINT NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+    purchase_id         BIGINT,
+    tx_points           INTEGER NOT NULL,
+    available_points    INTEGER NOT NULL DEFAULT 0,
+    expired             BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at          TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
 
 CREATE INDEX IF NOT EXISTS idx_transaction_user ON "transaction"(user_id);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_transaction_purchase_id ON "transaction"(purchase_id);
 
 INSERT INTO "user" (username, email, password_hash, created_at) VALUES
   ('alice','alice@example.com','pwdhash1', CURRENT_TIMESTAMP),

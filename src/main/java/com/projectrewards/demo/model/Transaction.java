@@ -28,7 +28,7 @@ public class Transaction {
     @Column(name = "transaction_type", nullable = false)
     private TransactionType type;
 
-    @Column(name = "purchase_id")
+    @Column(name = "purchase_id", unique = true)
     private Long purchaseId;
 
     @Column(name = "created_at", nullable = false)

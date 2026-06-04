@@ -26,6 +26,9 @@ public class PointsService {
     @Transactional
     public long earn(Long userId, int points, Long purchaseId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("user not found"));
+        if (purchaseId != null && transactionRepository.findByPurchaseId(purchaseId).isPresent()) {
+            throw new IllegalArgumentException("purchaseId already used");
+        }
         Transaction tx = new Transaction();
         tx.setUser(user);
         tx.setTxPoints(points);

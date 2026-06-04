@@ -19,6 +19,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 	Long sumAvailablePointsByUserId(@Param("userId") Long userId);
 
 	List<Transaction> findByUser_Id(Long userId);
+	
+	java.util.Optional<Transaction> findByPurchaseId(Long purchaseId);
 
 	@Modifying
 	@Transactional
