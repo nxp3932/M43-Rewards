@@ -98,8 +98,7 @@ I would definitely like to implement that next.
 The other solution I would improve is the expiry of points, currently it is just a check if it's more than a year old, but I would like to update the age, so that user could be informed if points are expiring soon, etc.
 
 Used GPT-5 mini built-in to VSCode for initial setup of SpringBoot project and to make changes as well. Some of it is documented in commits, but happy to share the prompts and results. I'll attach a few.
-
-fixing bug where refund could be infinitely applied, leading to errors
+Used Claude Code to fix scheduler task and add batching to the operation.
 
 ### Fixing a /refund edge case:
 ![fixing a refund edge case](gpt-example1.png)
@@ -110,3 +109,5 @@ fixing bug where refund could be infinitely applied, leading to errors
 ### Adding column to table and corresponding model changes
 ![adding column to table](gpt-example3.png)
 
+### Add batching to scheduled task that expires transactions
+![add batching to scheduled task](claude-batching.png)
