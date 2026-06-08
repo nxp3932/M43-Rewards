@@ -1,11 +1,11 @@
 package com.projectrewards.demo.repository;
 
 import com.projectrewards.demo.model.Transaction;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
@@ -24,8 +24,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
 	java.util.Optional<Transaction> findByUser_IdAndPurchaseId(Long userId, Long purchaseId);
 
-	@Modifying
-	@Transactional
-	@Query("UPDATE Transaction t SET t.expired = true WHERE t.expired = false AND t.createdAt < :cutoff")
-	int markExpiredBefore(@Param("cutoff") Instant cutoff);
+	Page<Transaction> findByExpiredFalseAndCreatedAtBefore(Instant cutoff, Pageable pageable);
 }
